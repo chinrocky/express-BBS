@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>页面</title>
+    <style>
+    body{width: 800px;height: 450px;}
+
+ .header{
+      width:800px;
+      height: 100px;
+      background-color:mintcream;
+      font-size:30px;}
+
+ .header ul li {
+             width:120px;
+             border:3px solid;
+             border-radius:20px;
+             padding:20px 30px ;
+             margin:10px 20px;
+             float:left;
+             text-align: center;
+             list-style-type: none;
+             background-color:mintcream;}
+
+  .header li.focus{background-color: red}
+  .content li.focus{background-color: red}
+
+ .content{
+             width:800px;
+             height:350px;
+             background-color:gainsboro;}
+
+ .content li{
+             list-style:none;
+             overflow: hidden; }
+
+ .content p {
+             float:left;
+             margin-left:20px;
+             margin-top: 10px;
+             font-size: 20px}
+    </style>
+</head>
+<body>
+
+    <div class="header" >
+        <ul>
+            <li class="focus">get接口</li>
+            <li>set</li>
+            <li>导出</li>
+        </ul>
+    </div>
+
+    <div class="content" >
+        <ul>
+            <li><p>something</p><p>abc</p></li>
+            <li><p>something</p><p>def</p></li>
+            <li><p>something</p><p>ghi</p></li>
+            <li><p>something</p><p>jkl</p></li>
+            <li><p>something</p><p>mno</p></li>
+            <li><p>something</p><p>pqi</p></li>
+        </ul>
+    </div>
+    
+    <script>
+       var H_index=0
+       var C_index=0
+       var H_li=document.querySelectorAll('.header ul li')
+       var C_li=document.querySelectorAll('.content ul li')
+
+       var keyWay={
+        leftMove(){
+            if (H_index > 0&&H_li[H_index].classList.contains("focus")) {
+          H_li[H_index].classList.remove("focus");
+          H_index--;
+          H_li[H_index].classList.add("focus");
+        }
+      }, 
+       rightMove(){
+            if (H_index < H_li.length-1&&H_li[H_index].classList.contains("focus")) {
+          H_li[H_index].classList.remove("focus");
+          H_index++;
+          H_li[H_index].classList.add("focus");
+        }
+       }, 
+       upMove(){
+           if (C_index>0&&!H_li[H_index].classList.contains("focus")&&H_index==1){
+          C_li[C_index].classList.remove("focus");
+          C_index--;
+          C_li[C_index].classList.add("focus");
+           }
+       },
+       downMove(){
+           if (C_index<C_li.length-1&&!H_li[H_index].classList.contains("focus")&&H_index==1){
+          C_li[C_index].classList.remove("focus");
+          C_index++;
+          C_li[C_index].classList.add("focus")     
+           }
+       },
+
+
+
+       doConfirm(){
+           if (H_index==0)//get接口
+           {H_li[H_index].classList.remove("focus")}
+           else if(H_index==1)//set
+           {H_li[H_index].classList.remove("focus");
+            C_li[C_index].classList.add("focus")}
+           else if(H_index==2)//导出
+           {H_li[H_index].classList.remove("focus")}
+       },
+       doReturn() { C_li[C_index].classList.remove("focus");
+                    H_li[H_index].classList.add("focus")
+      }
+    }
+
+    
+     // 遥控器按键处理
+     document.onkeydown = function (e) {
+      var e = e || window.event;
+      e.preventDefault();
+
+      if (e.keyCode == 37) {
+        keyWay.leftMove();
+      } else if (e.keyCode == 39) {
+        keyWay.rightMove();
+      } else if (e.keyCode == 38) {
+        keyWay.upMove();
+      } else if (e.keyCode == 40) {
+        keyWay.downMove();
+      }else if (e.keyCode == 13) {
+        keyWay.doConfirm();
+      } else if (e.keyCode == 8) {
+        keyWay.doReturn();
+      }
+    } 
+    
+    
+    
+    </script>
+</body>
+</html>
